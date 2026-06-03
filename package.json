@@ -1,0 +1,23 @@
+{
+  "name": "portfolio-fullstack",
+  "version": "1.0.0",
+  "description": "Full-stack portfolio application",
+  "scripts": {
+    "build": "echo 'Building frontend...' && cd frontend && npm install && npm run build && echo 'Setting up backend...' && cd ../backend && npm install && npx prisma generate && echo 'Build complete!'",
+    "start": "cd backend && npx prisma migrate deploy && node index.js",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && npm run dev",
+    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\""
+  },
+  "keywords": [
+    "portfolio",
+    "react",
+    "express",
+    "prisma"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^10.0.3"
+  }
+}

@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: portfolio-fullstack
+    env: node
+    plan: free
+    buildCommand: |
+      npm install
+      npx prisma generate
+      npm run build
+    startCommand: npm start
+    postDeployCommand: npx prisma migrate deploy
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        value: mysql://db29126:Tw6%23%3FYh5G8%3Da@db29126.public.databaseasp.net:3306/db29126
+      - key: UPLOAD_DIR
+        value: /var/data/uploads
