@@ -4,6 +4,9 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import CategoryIcon from '@mui/icons-material/Category';
 import CodeIcon from '@mui/icons-material/Code';
 import BusinessIcon from '@mui/icons-material/Business';
+import ArticleIcon from '@mui/icons-material/Article';
+import LabelIcon from '@mui/icons-material/Label';
+import ClassIcon from '@mui/icons-material/Class';
 
 const AdminSidebar = ({ view, setView }) => {
   const theme = useTheme();
@@ -23,6 +26,34 @@ const AdminSidebar = ({ view, setView }) => {
       }}
     >
       <List sx={{ px: 1 }}>
+        <ListItem disablePadding>
+          <ListItemButton 
+            selected={view === 'dashboard'} 
+            onClick={() => setView('dashboard')}
+            sx={{ 
+              borderRadius: 2,
+              mb: 0.5,
+              '&.Mui-selected': {
+                backgroundColor: theme.palette.primary.main,
+                color: theme.palette.primary.contrastText,
+                '&:hover': {
+                  backgroundColor: theme.palette.primary.dark,
+                },
+                '& .MuiListItemIcon-root': {
+                  color: theme.palette.primary.contrastText,
+                },
+              },
+            }}
+          >
+            <DashboardIcon sx={{ mr: 2 }} />
+            <ListItemText 
+              primary="Dashboard" 
+              primaryTypographyProps={{ 
+                fontWeight: view === 'dashboard' ? 600 : 400 
+              }} 
+            />
+          </ListItemButton>
+        </ListItem>
         <ListItem disablePadding>
           <ListItemButton 
             selected={view === 'projects'} 
@@ -131,6 +162,90 @@ const AdminSidebar = ({ view, setView }) => {
               primary="Technologies" 
               primaryTypographyProps={{ 
                 fontWeight: view === 'technologies' ? 600 : 400 
+              }} 
+            />
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton 
+            selected={view === 'blogs'} 
+            onClick={() => setView('blogs')}
+            sx={{ 
+              borderRadius: 2,
+              mb: 0.5,
+              '&.Mui-selected': {
+                backgroundColor: theme.palette.primary.main,
+                color: theme.palette.primary.contrastText,
+                '&:hover': {
+                  backgroundColor: theme.palette.primary.dark,
+                },
+                '& .MuiListItemIcon-root': {
+                  color: theme.palette.primary.contrastText,
+                },
+              },
+            }}
+          >
+            <ArticleIcon sx={{ mr: 2 }} />
+            <ListItemText 
+              primary="Blogs" 
+              primaryTypographyProps={{ 
+                fontWeight: view === 'blogs' ? 600 : 400 
+              }} 
+            />
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton 
+            selected={view === 'blogCategories'} 
+            onClick={() => setView('blogCategories')}
+            sx={{ 
+              borderRadius: 2,
+              mb: 0.5,
+              '&.Mui-selected': {
+                backgroundColor: theme.palette.primary.main,
+                color: theme.palette.primary.contrastText,
+                '&:hover': {
+                  backgroundColor: theme.palette.primary.dark,
+                },
+                '& .MuiListItemIcon-root': {
+                  color: theme.palette.primary.contrastText,
+                },
+              },
+            }}
+          >
+            <LabelIcon sx={{ mr: 2 }} />
+            <ListItemText 
+              primary="Blog Categories" 
+              primaryTypographyProps={{ 
+                fontWeight: view === 'blogCategories' ? 600 : 400 
+              }} 
+            />
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton 
+            selected={view === 'blogTags'} 
+            onClick={() => setView('blogTags')}
+            sx={{ 
+              borderRadius: 2,
+              mb: 0.5,
+              '&.Mui-selected': {
+                backgroundColor: theme.palette.primary.main,
+                color: theme.palette.primary.contrastText,
+                '&:hover': {
+                  backgroundColor: theme.palette.primary.dark,
+                },
+                '& .MuiListItemIcon-root': {
+                  color: theme.palette.primary.contrastText,
+                },
+              },
+            }}
+          >
+            <ClassIcon sx={{ mr: 2 }} />
+            <ListItemText 
+              primary="Blog Tags" 
+              primaryTypographyProps={{ 
+                fontWeight: view === 'blogTags' ? 600 : 400 
               }} 
             />
           </ListItemButton>

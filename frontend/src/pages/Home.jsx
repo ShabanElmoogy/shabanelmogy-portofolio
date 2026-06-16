@@ -36,9 +36,26 @@ function ScrollTop({ children }) {
   );
 }
 
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { Helmet } from 'react-helmet-async';
 
 const Home = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+      // Remove the '#' to get the ID
+      const id = location.hash.substring(1);
+      setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 100); // Small delay to ensure the DOM has rendered the elements
+    }
+  }, [location]);
+
   return (
     <>
       <Helmet>

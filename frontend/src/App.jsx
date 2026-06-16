@@ -15,6 +15,8 @@ const AdminPage = lazy(() => import("@/features/admin/components/AdminPage"));
 const AdminLoginDialog = lazy(() => import("@/features/admin/components/AdminLoginDialog"));
 const ProtectedAdminRoute = lazy(() => import("@/features/admin/components/ProtectedAdminRoute"));
 const ProjectDetail = lazy(() => import("@/features/projects/components/ProjectDetails/ProjectDetail"));
+const BlogList = lazy(() => import("@/features/blog/components/public/BlogList"));
+const BlogDetail = lazy(() => import("@/features/blog/components/public/BlogDetail"));
 
 const FullPageLoader = () => (
   <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
@@ -54,6 +56,8 @@ const AppContent = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/project/:id" element={<ProjectDetail />} />
+            <Route path="/blog" element={<BlogList />} />
+            <Route path="/blog/:slug" element={<BlogDetail />} />
             <Route path="/admin" element={<AdminLoginPage />} />
             <Route path="/admin/login" element={<AdminLoginPage />} />
             <Route

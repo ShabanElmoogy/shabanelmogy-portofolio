@@ -5,6 +5,10 @@ import ProjectsView from '@/features/admin/projects/ProjectsView';
 import CategoriesView from '@/features/admin/categories/CategoriesView';
 import TechnologiesView from '@/features/admin/technologies/TechnologiesView';
 import BusinessTypesView from '@/features/admin/businessType/BusinessTypesView';
+import BlogsView from '@/features/blog/components/admin/BlogsView';
+import BlogCategoriesView from '@/features/blog/components/admin/BlogCategoriesView';
+import BlogTagsView from '@/features/blog/components/admin/BlogTagsView';
+import AdminDashboard from '@/features/blog/components/admin/AdminDashboard';
 import { useAdminPanel } from '@/features/admin/hooks/useAdminPanel';
 
 const AdminPanelContent = () => {
@@ -36,6 +40,8 @@ const AdminPanelContent = () => {
             maxWidth: 1200, 
             mx: 'auto'
           }}>
+            {view === 'dashboard' && <AdminDashboard />}
+
             {view === 'projects' && (
               <ProjectsView
                 projects={projects}
@@ -79,6 +85,10 @@ const AdminPanelContent = () => {
                 onDeleteTechnology={handlers.technology.delete}
               />
             )}
+
+            {view === 'blogs' && <BlogsView />}
+            {view === 'blogCategories' && <BlogCategoriesView />}
+            {view === 'blogTags' && <BlogTagsView />}
           </Box>
         </Box>
       </Box>

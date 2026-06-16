@@ -33,6 +33,18 @@ function normalizeAxiosError(error) {
   return { message: error.message || 'Request setup failed', status: 0, data: null };
 }
 
+// Request interceptor to attach JWT token
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('adminToken');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
 // Response interceptor for unified error handling
 api.interceptors.response.use(
   (response) => response,

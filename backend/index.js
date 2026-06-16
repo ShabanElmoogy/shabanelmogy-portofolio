@@ -24,12 +24,27 @@ app.use("/uploads", express.static(uploadsPath));
 // Serve static files from frontend build
 app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
-// API Routes
+// V0 API Routes (Legacy Portfolio Data)
 app.use("/api/projects", projectRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/technologies", technologyRoutes);
 app.use("/api/business-types", businessTypeRoutes);
 app.use("/api/uploads", uploadRoutes);
+
+// V1 API Routes (Blog CMS)
+import authRoutes from './src/modules/auth/routes/authRoutes.js';
+import blogRoutes from './src/modules/blog/routes/blogRoutes.js';
+import adminBlogRoutes from './src/modules/blog/routes/adminBlogRoutes.js';
+import blogCategoryRoutes from './src/modules/blog/routes/blogCategoryRoutes.js';
+import blogTagRoutes from './src/modules/blog/routes/blogTagRoutes.js';
+import newsletterRoutes from './src/modules/newsletter/routes/newsletterRoutes.js';
+
+app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/blogs', blogRoutes);
+app.use('/api/v1/admin/blogs', adminBlogRoutes);
+app.use('/api/v1/blog-categories', blogCategoryRoutes);
+app.use('/api/v1/blog-tags', blogTagRoutes);
+app.use('/api/v1/newsletter', newsletterRoutes);
 
 // Health check route
 app.get("/api/health", (req, res) => {

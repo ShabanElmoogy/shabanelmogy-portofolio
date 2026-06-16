@@ -15,10 +15,14 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@google/genai": "^2.7.0",
     "@prisma/client": "^6.11.0",
     "cors": "^2.8.5",
     "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.3",
     "multer": "^1.4.5-lts.2",
-    "prisma": "^6.11.0"
+    "prisma": "^6.11.0",
+    "slugify": "^1.6.9",
+    "zod": "^4.4.3"
   }
 }

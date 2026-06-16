@@ -73,3 +73,108 @@ model ProjectTechnology {
   
   @@unique([projectId, technologyId])
 }
+
+// ==========================================
+// BLOG CMS MODELS
+// ==========================================
+
+enum BlogStatus {
+  DRAFT
+  REVIEW
+  PUBLISHED
+  ARCHIVED
+}
+
+model BlogCategory {
+  id        Int       @id @default(autoincrement())
+  name      String
+  slug      String    @unique
+  createdAt DateTime  @default(now())
+  blogs     Blog[]
+}
+
+model BlogTag {
+  id        Int       @id @default(autoincrement())
+  name      String
+  slug      String    @unique
+  createdAt DateTime  @default(now())
+  blogs     BlogTagRelation[]
+}
+
+model Blog {
+  id               Int       @id @default(autoincrement())
+  title            String    @db.VarChar(255)
+  slug             String    @unique @db.VarChar(255)
+  excerpt          String    @db.Text
+  content          String    @db.LongText
+  coverImage       String?
+  readingTime      Int       @default(0)
+  viewsCount       Int       @default(0)
+  status           BlogStatus @default(DRAFT)
+  isFeatured       Boolean   @default(false)
+  
+  // Soft Delete
+  isDeleted        Boolean   @default(false)
+  deletedAt        DateTime?
+
+  // SEO Fields
+  seoTitle         String?   @db.VarChar(255)
+  seoDescription   String?   @db.Text
+  seoKeywords      String?   @db.VarChar(255)
+
+  // Scheduling
+  scheduledPublishAt DateTime?
+  publishedAt      DateTime?
+  
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  categoryId       Int
+  category         BlogCategory @relation(fields: [categoryId], references: [id])
+  
+  tags             BlogTagRelation[]
+  views            BlogView[]
+  slugHistories    BlogSlugHistory[]
+
+  @@index([categoryId])
+  @@index([publishedAt])
+  @@index([viewsCount])
+  @@fulltext([title, excerpt, content])
+}
+
+model BlogTagRelation {
+  blogId    Int
+  tagId     Int
+  blog      Blog    @relation(fields: [blogId], references: [id], onDelete: Cascade)
+  tag       BlogTag @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([blogId, tagId])
+}
+
+model BlogView {
+  id        Int      @id @default(autoincrement())
+  blogId    Int
+  ipAddress String
+  userAgent String?
+  viewedAt  DateTime @default(now())
+  blog      Blog     @relation(fields: [blogId], references: [id], onDelete: Cascade)
+
+  @@index([blogId])
+}
+
+model BlogSlugHistory {
+  id        Int      @id @default(autoincrement())
+  blogId    Int
+  oldSlug   String
+  createdAt DateTime @default(now())
+  blog      Blog     @relation(fields: [blogId], references: [id], onDelete: Cascade)
+
+  @@index([oldSlug])
+}
+
+model NewsletterSubscriber {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+}

@@ -41,7 +41,7 @@ const HeaderMobileDrawer = ({ open, onClose, currentTime, formatTime, techStack,
       <List>
         {navigationItems.map((item) => (
           <ListItem key={item.label} disablePadding>
-            <ListItemButton onClick={() => onNavigate(item.sectionId)} sx={{ borderRadius: 2, mb: 1, transition: 'all 0.3s ease', '&:hover': { backgroundColor: 'action.hover', transform: 'translateX(8px)' } }}>
+            <ListItemButton onClick={() => onNavigate(item)} sx={{ borderRadius: 2, mb: 1, transition: 'all 0.3s ease', '&:hover': { backgroundColor: 'action.hover', transform: 'translateX(8px)' } }}>
               <ListItemText primary={item.label} primaryTypographyProps={{ fontSize: '1rem', fontWeight: 500 }} />
             </ListItemButton>
           </ListItem>

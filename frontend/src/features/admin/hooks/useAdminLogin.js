@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import http from '@/api/httpClient';
 
 export const useAdminLogin = (onClose) => {
   const [credentials, setCredentials] = useState({
@@ -33,27 +34,28 @@ export const useAdminLogin = (onClose) => {
     setLoading(true);
     setError('');
 
-    // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    try {
+      const response = await http.post('/v1/auth/login', {
+        username: credentials.username,
+        password: credentials.password
+      });
 
-    if (
-      credentials.username === ADMIN_CREDENTIALS.username &&
-      credentials.password === ADMIN_CREDENTIALS.password
-    ) {
-      // Store admin session (in production, use proper authentication)
+      // Store admin session
       localStorage.setItem('adminAuthenticated', 'true');
       localStorage.setItem('adminLoginTime', Date.now().toString());
+      localStorage.setItem('adminToken', response.token);
       
       // Navigate to admin panel after successful login
       navigate('/admin/panel');
       
       // Reset form
       setCredentials({ username: '', password: '' });
-    } else {
-      setError('Invalid username or password');
+      if (onClose) onClose();
+    } catch (err) {
+      setError(err.message || 'Invalid username or password');
+    } finally {
+      setLoading(false);
     }
-    
-    setLoading(false);
   };
 
   const handleClose = () => {

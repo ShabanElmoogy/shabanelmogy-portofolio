@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import { AppBar, Toolbar, useMediaQuery } from "@mui/material";
 import MobileMenuButton from "@/components/layout/Header/components/MobileMenuButton";
 import HeaderLeftInfo from "@/components/layout/Header/components/HeaderLeftInfo";
@@ -32,6 +33,7 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const { theme, toggleTheme } = useTheme();
   const isMobile = useMediaQuery("(max-width:1375px)");
+  const navigate = useNavigate();
 
   // Update time every second
   useEffect(() => {
@@ -61,17 +63,27 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Smooth scroll to section function
-  const scrollToSection = useCallback((sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
+  // Handle navigation
+  const handleNavigation = useCallback((item) => {
+    if (item.path) {
+      navigate(item.path);
+    } else if (item.sectionId) {
+      if (window.location.pathname !== '/') {
+        // If we are not on the home page, navigate to home with hash
+        navigate(`/#${item.sectionId}`);
+      } else {
+        // We are already on the home page, just scroll smoothly
+        const element = document.getElementById(item.sectionId);
+        if (element) {
+          element.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }
+      }
     }
     setShowModal(false);
-  }, []);
+  }, [navigate]);
 
   // Format time
   const formatTime = (date) => {
@@ -123,7 +135,7 @@ const Header = () => {
           {!isMobile && (
             <CenterNav
               navigationItems={NAVIGATION_ITEMS}
-              onNavigate={scrollToSection}
+              onNavigate={handleNavigation}
             />
           )}
 
@@ -141,7 +153,7 @@ const Header = () => {
         techStack={TECH_STACK}
         currentTechIndex={currentTechIndex}
         navigationItems={NAVIGATION_ITEMS}
-        onNavigate={scrollToSection}
+        onNavigate={handleNavigation}
       />
     </>
   );

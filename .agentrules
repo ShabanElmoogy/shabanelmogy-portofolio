@@ -1,0 +1,18 @@
+# Project Coding Guidelines & Knowledge
+
+## Material UI (MUI) v7 Guidelines
+- **Grid Component**: This project uses a newer version of Material UI. The `<Grid>` component does **NOT** use the `item` prop, and does not use inline responsive props like `xs={12}`. 
+- You MUST use the `size` prop instead. 
+  - **INCORRECT**: `<Grid item xs={12} md={4}>`
+  - **CORRECT**: `<Grid size={{ xs: 12, md: 4 }}>`
+
+## TypeScript & React Query
+- The `query.data` object returned by React Query is typically typed as `unknown` when no explicit generics are passed.
+- **Handling unknown properties**: When dealing with generic API query data (like lists), destructure the data or provide explicit JSDoc types to avoid `Property does not exist on type 'unknown'` lint errors.
+  - **Example**: `const data = /** @type {any} */ (query.data);`
+  - **Example**: `const { items = [], totalItems = 0 } = query.data || {};`
+
+## Frontend Architecture
+- Architecture follows Feature-Sliced Design.
+- Features are located in `frontend/src/features/`.
+- Routes are protected via backend token validation (JWT), not just localStorage.
