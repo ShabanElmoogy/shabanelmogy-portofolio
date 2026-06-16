@@ -10,6 +10,7 @@ import { useTheme } from "@/providers/ThemeContext";
 
 const NAVIGATION_ITEMS = Object.freeze([
   { label: "About", sectionId: "up" },
+  { label: "Services", sectionId: "services" },
   { label: "Featured", sectionId: "featured-projects" },
   { label: "Projects", sectionId: "projects" },
   { label: "Contact", sectionId: "contact" },

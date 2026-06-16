@@ -6,6 +6,7 @@ import Contact from "@/features/contact/components/Contact";
 import Footer from "@/components/layout/Footer/Footer";
 import FeaturedProjectsCarousel from "@/features/projects/components/Featured/FeaturedProjectsCarousel";
 import AdminLoginButton from "@/features/admin/components/AdminLoginButton";
+import Services from "@/features/services/components/Services";
 
 // Smooth scroll-to-top using MUI utilities
 function ScrollTop({ children }) {
@@ -92,6 +93,12 @@ const Home = () => {
 
         <Box component="section" id="hero" sx={{ mt: 4 }}>
           <Hero />
+        </Box>
+
+        <Divider sx={{ my: 4 }} />
+
+        <Box component="section" id="services">
+          <Services />
         </Box>
 
         <Divider sx={{ my: 4 }} />
