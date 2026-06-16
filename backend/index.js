@@ -22,7 +22,7 @@ const uploadsPath = process.env.UPLOAD_DIR || path.join(__dirname, "./uploads");
 app.use("/uploads", express.static(uploadsPath));
 
 // Serve static files from frontend build
-app.use(express.static(path.join(__dirname, "../frontend/dist")));
+app.use(express.static(path.join(__dirname, "public")));
 
 // V0 API Routes (Legacy Portfolio Data)
 app.use("/api/projects", projectRoutes);
@@ -55,7 +55,7 @@ app.get("/api/health", (req, res) => {
 app.use((req, res, next) => {
   // If it's not an API route and not a static file, serve index.html
   if (!req.path.startsWith('/api') && !req.path.includes('.')) {
-    res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
+    res.sendFile(path.join(__dirname, "public/index.html"));
   } else {
     next();
   }

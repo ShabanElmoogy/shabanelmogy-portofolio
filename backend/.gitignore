@@ -5,9 +5,11 @@ node_modules
 uploads
 
 /generated/prisma
+public/
 
 # Ignore the local Prisma SQLite database
 prisma/dev.db
 prisma/dev.db-journal
 
 /generated/prisma
+*.zip
