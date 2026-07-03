@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Box, IconButton, Stack, Typography } from "@mui/material";
 import GlassPaper from "@/components/ui/GlassPaper";
+import { trackEvent } from "@/lib/analytics";
 
 const FooterSocialCard = ({ socialLinks }) => {
   return (
@@ -25,6 +26,13 @@ const FooterSocialCard = ({ socialLinks }) => {
                 href={social.url}
                 target="_blank"
                 rel="noopener noreferrer"
+                // Track social profile clicks (GitHub, LinkedIn, etc.)
+                onClick={() => {
+                  let eventName = 'social_click';
+                  if (social.label?.toLowerCase().includes('github')) eventName = 'github_click';
+                  if (social.label?.toLowerCase().includes('linkedin')) eventName = 'linkedin_click';
+                  trackEvent(eventName, { destination_url: social.url });
+                }}
                 size="small"
                 sx={{
                   backgroundColor: social.color,

@@ -2,6 +2,7 @@
 import { Stack, Typography, Button } from "@mui/material";
 import DetailCard from "@/features/projects/components/ProjectDetails/components/cards/DetailCard";
 import { Launch as LaunchIcon, GitHub as GitHubIcon } from "@mui/icons-material";
+import { trackEvent } from "@/lib/analytics";
 
 const openInNewTab = (url) => {
   console.log('Opening URL:', url);
@@ -22,7 +23,11 @@ export const ActionButtons = ({ previewUrl, githubUrl }) => {
         variant="contained"
         size="medium"
         startIcon={<LaunchIcon />}
-        onClick={() => openInNewTab(previewUrl)}
+        // Track Live Demo button click
+        onClick={() => {
+          trackEvent('live_demo_click', { destination_url: previewUrl });
+          openInNewTab(previewUrl);
+        }}
         sx={{
           borderRadius: 3,
           px: 2,
@@ -43,7 +48,11 @@ export const ActionButtons = ({ previewUrl, githubUrl }) => {
         variant="outlined"
         size="medium"
         startIcon={<GitHubIcon />}
-        onClick={() => openInNewTab(githubUrl)}
+        // Track Source Code (GitHub) button click
+        onClick={() => {
+          trackEvent('source_code_click', { destination_url: githubUrl });
+          openInNewTab(githubUrl);
+        }}
         sx={{
           borderRadius: 3,
           px: 2,

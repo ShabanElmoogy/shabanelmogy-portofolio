@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Box, CardMedia, Chip, IconButton, Tooltip } from "@mui/material";
 import { Launch as LaunchIcon, GitHub as GitHubIcon, Star as StarIcon } from "@mui/icons-material";
+import { trackEvent } from "@/lib/analytics";
 
 const FeaturedCardMedia = ({ project }) => (
   <Box sx={{ position: 'relative', overflow: 'hidden' }}>
@@ -38,9 +39,11 @@ const FeaturedCardMedia = ({ project }) => (
         <Tooltip title="View Live Demo">
           <IconButton
             size="large"
+            // Track Live Demo click on featured project card image overlay
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
+              trackEvent('live_demo_click', { destination_url: project.previewUrl });
               window.open(project.previewUrl, '_blank', 'noopener,noreferrer');
             }}
             sx={{
@@ -61,9 +64,11 @@ const FeaturedCardMedia = ({ project }) => (
         <Tooltip title="View Source Code">
           <IconButton
             size="large"
+            // Track Source Code click on featured project card image overlay
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
+              trackEvent('source_code_click', { destination_url: project.githubUrl });
               window.open(project.githubUrl, '_blank', 'noopener,noreferrer');
             }}
             sx={{

@@ -5,6 +5,7 @@ import {
   Edit as EditIcon,
   Delete as DeleteIcon,
 } from "@mui/icons-material";
+import { trackEvent } from "@/lib/analytics";
 
 /* eslint-disable react/prop-types */
 const ProjectCardMedia = ({ item, adminMode, onOpenUrl, onEdit, onDelete }) => {
@@ -45,9 +46,11 @@ const ProjectCardMedia = ({ item, adminMode, onOpenUrl, onEdit, onDelete }) => {
           <Tooltip title="View Live Demo">
             <IconButton
               size="large"
+              // Track Live Demo click on project card image overlay
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
+                trackEvent('live_demo_click', { destination_url: item.previewUrl });
                 onOpenUrl?.(item.previewUrl);
               }}
               sx={{
@@ -68,9 +71,11 @@ const ProjectCardMedia = ({ item, adminMode, onOpenUrl, onEdit, onDelete }) => {
           <Tooltip title="View Source Code">
             <IconButton
               size="large"
+              // Track Source Code click on project card image overlay
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
+                trackEvent('source_code_click', { destination_url: item.githubUrl });
                 onOpenUrl?.(item.githubUrl);
               }}
               sx={{

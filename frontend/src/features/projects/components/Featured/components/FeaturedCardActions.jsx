@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { Button, CardActions } from "@mui/material";
 import { ArrowForward as ArrowForwardIcon } from "@mui/icons-material";
 import { useTheme as useCustomTheme } from "@/providers/ThemeContext";
+import { trackEvent } from "@/lib/analytics";
 
-const FeaturedCardActions = ({ projectId }) => {
+const FeaturedCardActions = ({ projectId, projectTitle }) => {
   const { isDark } = useCustomTheme();
   const navigate = useNavigate();
 
@@ -17,6 +18,8 @@ const FeaturedCardActions = ({ projectId }) => {
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
+          // Track when a user clicks the View Details button to open a featured project
+          trackEvent('project_open', { project_name: projectTitle || projectId });
           navigate(`/project/${projectId}`);
         }}
         sx={{

@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Box, Link, Stack, Typography } from "@mui/material";
 import GlassPaper from "@/components/ui/GlassPaper";
+import { trackEvent } from "@/lib/analytics";
 
 const FooterContactCard = ({ contactInfo }) => {
   return (
@@ -24,6 +25,13 @@ const FooterContactCard = ({ contactInfo }) => {
                 key={index}
                 href={info.href}
                 title={info.label}
+                // Track contact link clicks (Email, Phone)
+                onClick={() => {
+                  let eventName = 'contact_click';
+                  if (info.href?.startsWith('mailto:')) eventName = 'email_click';
+                  if (info.href?.startsWith('tel:')) eventName = 'phone_click';
+                  trackEvent(eventName, { destination_url: info.href, label: info.label });
+                }}
                 sx={{
                   display: 'flex',
                   alignItems: 'flex-start',

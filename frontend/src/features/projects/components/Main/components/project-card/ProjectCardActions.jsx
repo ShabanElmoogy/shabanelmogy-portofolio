@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Button, CardActions } from "@mui/material";
 import { ArrowForward as ArrowForwardIcon } from "@mui/icons-material";
+import { trackEvent } from "@/lib/analytics";
 
 const ProjectCardActions = ({ isDark, onNavigate, item }) => {
   return (
@@ -12,6 +13,8 @@ const ProjectCardActions = ({ isDark, onNavigate, item }) => {
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
+          // Track when a user clicks the View Details button to open a project
+          trackEvent('project_open', { project_name: item.title });
           onNavigate?.(item.id);
         }}
         sx={{

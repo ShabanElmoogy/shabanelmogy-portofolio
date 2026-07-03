@@ -4,6 +4,7 @@ import { Box, Paper, Stack, TextField, Button, Alert, useTheme } from "@mui/mate
 import { Send as SendIcon } from "@mui/icons-material";
 import { ValidationError } from "@formspree/react";
 import { useContactForm } from "@/features/contact/hooks/useContactForm";
+import { trackEvent } from "@/lib/analytics";
 
 const ContactForm = () => {
   const theme = useTheme();
@@ -67,6 +68,8 @@ const ContactForm = () => {
             type="submit"
             variant="contained"
             disabled={state.submitting}
+            // Track contact form submit button click
+            onClick={() => trackEvent('contact_click', { button_text: 'Send' })}
             endIcon={<SendIcon />}
             sx={{
               borderRadius: 2,

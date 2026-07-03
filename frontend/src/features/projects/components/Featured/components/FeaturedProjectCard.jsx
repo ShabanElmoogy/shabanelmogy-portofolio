@@ -53,7 +53,7 @@ const FeaturedProjectCard = ({ project, index = 0 }) => {
           <FeaturedCardMetaChips project={project} />
           <FeaturedCardTechnologies project={project} />
         </CardContent>
-        <FeaturedCardActions projectId={project.id} />
+        <FeaturedCardActions projectId={project.id} projectTitle={project.title} />
       </Card>
     </motion.div>
   );

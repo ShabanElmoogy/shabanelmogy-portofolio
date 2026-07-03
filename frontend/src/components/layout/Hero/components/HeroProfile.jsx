@@ -4,6 +4,7 @@ import VerifiedIcon from "@mui/icons-material/Verified";
 import DownloadRounded from "@mui/icons-material/DownloadRounded";
 import ExperienceBadge from "@/components/layout/Hero/components/ExperienceBadge";
 import { useTheme } from "@/providers/ThemeContext";
+import { trackEvent } from "@/lib/analytics";
 
 const HeroProfile = () => {
   const { isDark } = useTheme();
@@ -14,7 +15,7 @@ const HeroProfile = () => {
           <Avatar
             src="/mypic.png"
             alt="Profile"
-            imgProps={{ loading: "eager", fetchpriority: "high", decoding: "async", width: 100, height: 100 }}
+            imgProps={{ loading: "eager", fetchPriority: "high", decoding: "async", width: 100, height: 100 }}
             sx={{
               width: { xs: 80, sm: 100 },
               height: { xs: 80, sm: 100 },
@@ -61,6 +62,8 @@ const HeroProfile = () => {
             href="https://flowcv.com/resume/2car3hlgwtet"
             target="_blank"
             rel="noopener noreferrer"
+            // Track when a user clicks the Download CV button
+            onClick={() => trackEvent('download_cv', { destination_url: "https://flowcv.com/resume/2car3hlgwtet" })}
             startIcon={<DownloadRounded />}
             sx={{ textTransform: "none", fontWeight: 600 }}
           >
